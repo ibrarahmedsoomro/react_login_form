@@ -6,56 +6,25 @@ const App = () => {
     const [FullName, setFullName] = useState({
         FName: "",
         LName: "",
-        Email : "",
-        Phone : "",
+        Email: "",
+        Phone: "",
+        quali : "",
 
     });
 
     const InputEvent = (event) => {
         console.log(event.target.value)
         console.log(event.target.name)
- 
-        const {value, name} = event.target
+
+        const { value, name } = event.target
 
         setFullName((preValue) => {
-            // console.log(preValue)
 
-            if (name === "FName") {
-                return {
-                    FName: value,
-                    LName: preValue.lname,
-                    Email: preValue.Email,
-                    Phone : preValue.Phone
-
-
-                };
-            } else if (name === "LName") {
-                return {
-
-                    FName: preValue.FName,
-                    LName: value,
-                    Email: preValue.Email,
-                    Phone : preValue.Phone
-
-                };               
-            }else if (name === "Emai") {
-                return {
-                    FName: preValue.FName,
-                    LName: preValue.LName,
-                    Email: value,
-                    Phone : preValue.Phone,
-
-                };               
-            }else if (name === "Phone") {
-                return {
-                    FName: preValue.FName,
-                    LName: preValue.LName,
-                    Email: preValue.Email,
-               Phone : value
-
-                };               
+            return {
+                ...preValue,
+                [name]: value,
             }
-            
+
         })
 
     }
@@ -68,9 +37,12 @@ const App = () => {
         <>
             <form onSubmit={onsubmit}>
                 <div>
-                    <h1>Hello {FullName.FName}{FullName.LName}</h1>
+                    <h1>Hello {FullName.FName} 
+                    {FullName.LName}</h1>
+                    <br />
                     <p>{FullName.Email}</p>
                     <p>{FullName.Phone}</p>
+                    <p>{FullName.quali}</p>
                     <input type="text"
                         name="FName"
                         placeholder="Enter your First Name"
@@ -94,6 +66,12 @@ const App = () => {
                         name="Phone"
                         onChange={InputEvent}
                         value={FullName.Phone} />
+
+                    <input type="text"
+                        placeholder="Enter your Qualification"
+                        name="quali"
+                        onChange={InputEvent}
+                        value={FullName.quali} />
 
                     <button type="submit">Submit Here</button>
                 </div>
