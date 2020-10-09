@@ -3,47 +3,67 @@ import './App.css';
 
 const App = () => {
 
-    const [name, setName] = useState("");
-    const [fullname, setfullName] = useState();
-    const [nametwo, setnameTwo] = useState();
-    const [lastname , setLastName] = useState('');
+    const [FullName, setFullName] =useState({
+        FName : "",
+        LName : "",
+
+    });
 
     const InputEvent = (event) => {
         console.log(event.target.value)
-        setName(event.target.value);
-    }
+        console.log(event.target.name)
 
+        const value = event.target.value
+        const name = event.target.name
+
+        setFullName((preValue)=>{
+            // console.log(preValue)
+
+            if (name ===  "FName") {
+                return {
+                    FName : value,
+                    LName : preValue.lname
+                }; 
+            } else if (name ===  "LName") {
+                return {
+                    FName : preValue.FName,
+                    LName : value
+                }
+        }
+        })
+    
+    }
     const onsubmit = (event) => {
-        event.preventDefault();
-        setfullName(name)
-        setLastName(nametwo)
-        
+        event.preventDefault(); 
+        alert("form is submited")
     }
+    
 
-    const InputEventTwo = (event) => {
-        setnameTwo(event.target.value)
-
-    }
-
+    
+    
     return (
         <>
             <form onSubmit={onsubmit}>
                 <div>
-                    <h1>Hello {fullname} {lastname}</h1>
-                    <input type="text"
+                    <h1>Hello {FullName.FName}{FullName.LName}</h1>
+                        <input type="text"
+                        name="FName"
                         placeholder="Enter your First Name"
                         onChange={InputEvent}
-                        value={name} />
+                        value={FullName.fname} />
 
-                    <input type="text"
+                        <input type="text"
                         placeholder="Enter your Last Name"
-                        onChange={InputEventTwo}
-                        value={nametwo} />
+                        name ="LName"
+                        onChange={InputEvent}                   
+                        value={FullName.Lname} />
+
                     <button type="submit">Submit Here</button>
                 </div>
             </form>
         </>
     )
 }
+
 
 export default App;
